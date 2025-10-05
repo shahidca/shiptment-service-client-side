@@ -1,6 +1,10 @@
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import logo from '../assets/logo.png'
+import UseAuth from '../Hooks/UseAuth';
+import Swal from 'sweetalert2'
 const NavBar = () => {
+    const { user, signOutUser } = UseAuth()
+    const navigae = useNavigate()
     const links = <>
         <li><a>Services</a></li>
         <li><a>Coverage</a></li>
@@ -8,6 +12,45 @@ const NavBar = () => {
         <li><a>Pricing</a></li>
         <li><a>Be a Rider</a></li>
     </>
+    const handleLogOut = () => {
+        signOutUser()
+            .then(() => {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                });
+                Toast.fire({
+                    icon: "success",
+                    title: "Log Out successfully"
+                });
+                navigae('sign-up')
+            })
+            .catch(error => {
+                console.log(error.message)
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                });
+                Toast.fire({
+                    icon: "success",
+                    title: error.message
+                });
+            })
+    }
     return (
         <div className="navbar bg-base-100 shadow-sm">
             <div className="navbar-start">
@@ -26,7 +69,7 @@ const NavBar = () => {
                 </div>
                 <div className='flex items-center justify-center'>
                     <img className='w-6' src={logo} alt="logo" />
-                <a className="text-xl font-medium">Profast</a>
+                    <a className="text-xl font-medium">Profast</a>
                 </div>
             </div>
             <div className="navbar-center hidden lg:flex">
@@ -35,7 +78,10 @@ const NavBar = () => {
                 </ul>
             </div>
             <div className="navbar-end gap-x-4">
-                <Link to={'/sign-in'}><a className="btn text-xl font-medium rounded-lg">Sign In</a></Link>
+                {
+                    user ? <a onClick={handleLogOut} className="btn text-xl font-medium rounded-lg">Log Out</a> : <Link to={'/sign-in'}><a className="btn text-xl font-medium rounded-lg">Sign In</a></Link>
+                }
+
                 <button className="rounded-lg hidden md:block"><a className="text-xl font-medium btn bg-[#CAEB66]">Be a Rider</a></button>
             </div>
         </div>
