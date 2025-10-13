@@ -5,6 +5,9 @@ import ErrorPage from "../pages/ErrorPage";
 import Authantication from "./Authantication";
 import SignIn from "../pages/Authantications/SignIn";
 import SignUp from "../pages/Authantications/SignUp";
+import BeRider from "../pages/home/BeRider";
+import Pricing from "../pages/Pricing";
+import About from "../pages/About";
 
 export const router = createBrowserRouter([
   {
@@ -15,6 +18,18 @@ export const router = createBrowserRouter([
         {
             index: true,
             Component: Home,
+        },
+        {
+          path: 'about',
+          Component: About
+        },
+        {
+          path: "beRider",
+          Component: BeRider
+        },
+        {
+          path: 'pricing',
+          Component: Pricing
         }
     ]
   },

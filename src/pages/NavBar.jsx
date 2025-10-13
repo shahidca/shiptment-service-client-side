@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router';
+import { Link, NavLink, useNavigate } from 'react-router';
 import logo from '../assets/logo.png'
 import UseAuth from '../Hooks/UseAuth';
 import Swal from 'sweetalert2'
@@ -8,9 +8,9 @@ const NavBar = () => {
     const links = <>
         <li><a>Services</a></li>
         <li><a>Coverage</a></li>
-        <li><a>About Us</a></li>
-        <li><a>Pricing</a></li>
-        <li><a>Be a Rider</a></li>
+        <NavLink to={'about'}><li><a>About Us</a></li></NavLink>
+        <NavLink to={'pricing'}><li><a>Pricing</a></li></NavLink>
+        <NavLink to={'beRider'}><li><a>Be a Rider</a></li></NavLink>
     </>
     const handleLogOut = () => {
         signOutUser()
@@ -67,10 +67,12 @@ const NavBar = () => {
                         }
                     </ul>
                 </div>
+                <Link to={'/'}>
                 <div className='flex items-center justify-center'>
                     <img className='w-6' src={logo} alt="logo" />
                     <a className="text-xl font-medium">Profast</a>
                 </div>
+                </Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
