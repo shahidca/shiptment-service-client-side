@@ -8,6 +8,9 @@ import SignUp from "../pages/Authantications/SignUp";
 import BeRider from "../pages/home/BeRider";
 import Pricing from "../pages/Pricing";
 import About from "../pages/About";
+import PrivateRoute from "./PrivateRoute";
+import Order from "../pages/Order";
+import AddParcel from "../pages/AddParcel";
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +33,14 @@ export const router = createBrowserRouter([
         {
           path: 'pricing',
           Component: Pricing
+        },
+        {
+          path: 'order',
+          element: <PrivateRoute><Order></Order></PrivateRoute>
+        },
+        {
+          path: 'add-parcel',
+          element: <PrivateRoute><AddParcel></AddParcel></PrivateRoute>
         }
     ]
   },
@@ -44,7 +55,7 @@ export const router = createBrowserRouter([
       {
         path: "sign-up",
         Component: SignUp
-      }
+      },
     ]
   }
 ])

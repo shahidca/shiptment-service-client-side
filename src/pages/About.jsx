@@ -2,7 +2,7 @@ import aboutImg from '../assets/authImage.png'
 
 const About = () => {
   return (
-    <section className="bg-gray-50 text-gray-800 py-16 px-6 md:px-20">
+    <section className="bg-gray-50 text-gray-800 py-6 md:py-20 ">
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
         {/* Left side: Image */}
         <div className="flex justify-center">

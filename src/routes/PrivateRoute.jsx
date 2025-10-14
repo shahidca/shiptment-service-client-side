@@ -1,10 +1,12 @@
-import { Navigate } from "react-router";
+import { Navigate, useLocation } from "react-router";
 import UseAuth from "../Hooks/UseAuth";
 
-const PrivateRoute = ({children}) => {
+const PrivateRoute = ({ children }) => {
     const { user, loding } = UseAuth();
+    const location = useLocation()
     if (loding) {
-        <div>
+
+        return <div className="text-center mt-6">
             <span className="loading loading-spinner loading-xs"></span>
             <span className="loading loading-spinner loading-sm"></span>
             <span className="loading loading-spinner loading-md"></span>
@@ -12,8 +14,10 @@ const PrivateRoute = ({children}) => {
             <span className="loading loading-spinner loading-xl"></span>
         </div>
     }
-    if(!user){
-        <Navigate to={'/sign-in'}></Navigate>
+    if (!user) {
+
+        return <Navigate to={'/sign-in'} state={{from:location}} replace></Navigate>
+
     }
     return children;
 };

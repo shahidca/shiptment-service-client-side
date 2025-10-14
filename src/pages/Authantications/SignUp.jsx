@@ -28,7 +28,7 @@ const SignUp = () => {
                 });
                 Toast.fire({
                     icon: "success",
-                    title: "Signed in successfully"
+                    title: "Sign up in successfully"
                 });
                 navigate('/')
             })

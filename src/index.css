@@ -3,4 +3,7 @@
 
 .active{
     background: #CAEB66;
+    border-radius: 8px;
+    padding: 4px;
+    transition-duration: 300;
 }

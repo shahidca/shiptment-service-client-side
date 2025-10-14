@@ -1,32 +1,82 @@
 
-import { Link, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import UseAuth from '../../Hooks/UseAuth';
+import Swal from 'sweetalert2'
 
 const SignIn = () => {
     const navigae = useNavigate()
-    const { googleSignIn,signInUser } = UseAuth()
+    const { googleSignIn, signInUser } = UseAuth()
+    const location = useLocation()
+    const from = location.state?.from?.pathname || '/'
     const handleSignIn = (e) => {
         e.preventDefault();
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
-       signInUser(email, password)
-       .then(result =>{
-        console.log(result.user)
-       })
-       .catch(error =>{
-        console.log(error.message)
-       }) 
+        signInUser(email, password)
+            .then(result => {
+                // console.log(result.user)
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                });
+                Toast.fire({
+                    icon: "success",
+                    title: "Sign in successfully"
+                });
+
+                navigae(from, { replace: true })
+            })
+            .catch(error => {
+                // console.log(error.message)
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                });
+                Toast.fire({
+                    icon: "error",
+                    title: error.message
+                });
+            })
 
     }
     const handleGoogleSignIn = () => {
         googleSignIn()
             .then(result => {
                 console.log(result.user)
-                navigae('/')
+                navigae(from, { replace: true })
             })
             .catch(error => {
-                console.log(error.message)
+                // console.log(error.message)
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                });
+                Toast.fire({
+                    icon: "error",
+                    title: error.message
+                });
             })
     }
     return (
@@ -80,7 +130,7 @@ const SignIn = () => {
                                         title="Must be more than 8 characters, including number, lowercase letter, uppercase letter"
                                     />
                                 </label>
-                               
+
                                 <div><a className="link link-hover">Forgot password?</a></div>
                                 <button className="btn btn-neutral mt-4 bg-[#CAEB66] text-black">Login</button>
                                 <p>Don’t have any account? <Link className="text-[#CAEB66] font-bold ml-2" to={'/sign-up'}>Register</Link></p>

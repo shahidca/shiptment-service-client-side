@@ -6,8 +6,8 @@ const NavBar = () => {
     const { user, signOutUser } = UseAuth()
     const navigae = useNavigate()
     const links = <>
-        <li><a>Services</a></li>
-        <li><a>Coverage</a></li>
+        <NavLink to={'add-parcel'}><li><a>Add Parcel</a></li></NavLink>
+        <NavLink to={'order'}><li><a>Tracking order</a></li></NavLink>
         <NavLink to={'about'}><li><a>About Us</a></li></NavLink>
         <NavLink to={'pricing'}><li><a>Pricing</a></li></NavLink>
         <NavLink to={'beRider'}><li><a>Be a Rider</a></li></NavLink>
@@ -84,7 +84,7 @@ const NavBar = () => {
                     user ? <a onClick={handleLogOut} className="btn text-xl font-medium rounded-lg">Log Out</a> : <Link to={'/sign-in'}><a className="btn text-xl font-medium rounded-lg">Sign In</a></Link>
                 }
 
-                <button className="rounded-lg hidden md:block"><a className="text-xl font-medium btn bg-[#CAEB66]">Be a Rider</a></button>
+                <Link to={'beRider'}><button className="rounded-lg hidden md:block"><a className="text-xl font-medium btn">Be a Rider</a></button></Link>
             </div>
         </div>
     );
